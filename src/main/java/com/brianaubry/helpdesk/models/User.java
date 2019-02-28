@@ -2,11 +2,11 @@ package com.brianaubry.helpdesk.models;
 
 import com.brianaubry.helpdesk.models.Role;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -24,6 +24,26 @@ public class User {
     @NotNull
     @Size(min=3, max=12)
     private String username;
+
+    @NotNull
+    @Size(min=8)
+    private String password;
+
+    @OneToMany
+    private List<Ticket> createdTickets = new ArrayList<>();
+
+    @OneToMany
+    private List<Ticket> assignedTickets = new ArrayList<>();
+
+    public User() {
+
+    }
+
+    public User(String name, Role role, String username) {
+        this.name = name;
+        this.role = role;
+        this.username = username;
+    }
 
     public int getId() {
         return id;
@@ -51,5 +71,21 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Ticket> getCreatedTickets() {
+        return createdTickets;
+    }
+
+    public List<Ticket> getAssignedTickets() {
+        return assignedTickets;
     }
 }
