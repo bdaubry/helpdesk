@@ -1,19 +1,41 @@
 package com.brianaubry.helpdesk.models;
 
-public enum Role {
+import javax.persistence.*;
+import java.util.Set;
 
-    ADMIN("Administrator"),
-    TECH("Tech"),
-    USER("User");
+@Entity
+@Table(name = "role")
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private final String name;
+    private String name;
 
-    Role(String name) {
-        this.name = name;
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }

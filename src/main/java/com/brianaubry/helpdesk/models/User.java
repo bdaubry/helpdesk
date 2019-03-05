@@ -1,12 +1,11 @@
 package com.brianaubry.helpdesk.models;
 
-import com.brianaubry.helpdesk.models.Role;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -18,8 +17,8 @@ public class User {
     @NotNull
     private String name;
 
-    @NotNull
-    private Role role;
+    @ManyToMany
+    private Set<Role> roles;
 
     @NotNull
     @Size(min=3, max=12)
@@ -28,6 +27,10 @@ public class User {
     @NotNull
     @Size(min=8)
     private String password;
+
+    @NotNull
+    @Transient
+    private String passwordConfirm;
 
     @OneToMany
     private List<Ticket> createdTickets = new ArrayList<>();
@@ -41,7 +44,6 @@ public class User {
 
     public User(String name, Role role, String username) {
         this.name = name;
-        this.role = role;
         this.username = username;
     }
 
@@ -55,14 +57,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public String getUsername() {
@@ -81,11 +75,27 @@ public class User {
         this.password = password;
     }
 
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
     public List<Ticket> getCreatedTickets() {
         return createdTickets;
     }
 
     public List<Ticket> getAssignedTickets() {
         return assignedTickets;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
