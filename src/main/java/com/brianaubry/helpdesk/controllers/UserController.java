@@ -41,4 +41,12 @@ public class UserController {
         return "redirect:";
     }
 
+    @GetMapping("adminCreate")
+    public void createAdminAccount(){
+        User admin = new User();
+        admin.setUsername("admin");
+        admin.setPassword("password");
+        admin.setRoles("ADMIN");
+    }
+
 }
