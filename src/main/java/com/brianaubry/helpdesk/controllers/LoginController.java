@@ -27,7 +27,7 @@ public class LoginController {
     @RequestMapping(name="login", method=RequestMethod.POST)
     public String handleLogin(Model model, @RequestParam String username, @RequestParam String password){
 
-        User userToLogin = userDao.findOne(name=username);
+        User userToLogin = userDao.findByUsername(username);
 
         return "redirect:";
     }

@@ -8,4 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface UserDao extends JpaRepository<User,Integer>{
+    User findByUsername(String username);
 }
