@@ -1,17 +1,17 @@
 package com.brianaubry.helpdesk;
 
-import com.brianaubry.helpdesk.models.Role;
-import com.brianaubry.helpdesk.models.data.UserDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    private final String USERS_QUERY = "select email, password, active from user where email=?";
+    private final String USERS_QUERY = "select username, email, password from user where email=?";
     private final String ROLES_QUERY = "select u.email, r.role from user u inner join user_role ur on (u.id = ur.user_id) inner join role r on (ur.role_id=r.role_id) where u.email=?";
 
     @Override
@@ -42,31 +42,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers("/js/**", "/css/**","/user/register").permitAll()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .antMatchers("/user/**").hasRole("USER")
-                    .antMatchers("/user/**").hasRole("TECH")
-                    .anyRequest().authenticated()
-                    .and()
-                .formLogin()
-                    .loginPage("/user/login")
-                    .permitAll()
-                    .and()
-                .logout()
-                    .permitAll();
-
-
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/user/login").permitAll()
+                .antMatchers("/user/register").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+                .authenticated().and().csrf().disable()
+                .formLogin().loginPage("/user/login").failureUrl("/user/login?error=true")
+                .defaultSuccessUrl("/")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                .logoutSuccessUrl("/")
+                .and().rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(60*60)
+                .and().exceptionHandling().accessDeniedPage("/access_denied");
     }
+
     @Bean
-    public AuthenticationManager customAuthenticationManager() throws Exception {
-        return authenticationManager();
-    }
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+        db.setDataSource(dataSource);
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        return db;
     }
 
 }

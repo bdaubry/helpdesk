@@ -1,9 +1,10 @@
 package com.brianaubry.helpdesk.controllers;
 
 import com.brianaubry.helpdesk.models.User;
-import com.brianaubry.helpdesk.service.SecurityService;
 import com.brianaubry.helpdesk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,9 +17,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private SecurityService securityService;
-
     @RequestMapping(value="login", method=RequestMethod.GET)
     public String login(Model model){
 
@@ -30,12 +28,8 @@ public class UserController {
     @RequestMapping(value="login", method=RequestMethod.POST)
     public String handleLogin(Model model, @RequestParam String username, @RequestParam String password, Errors errors){
 
-        if(errors.hasErrors()){
-            model.addAttribute("error", "Username or password invalid");
-            return "user/login";
-        }
-
-        securityService.autoLogin(username,password);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByEmail(auth.getName());
 
         return "redirect:";
     }
