@@ -1,41 +1,33 @@
 package com.brianaubry.helpdesk.models;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "role")
 public class Role {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="role_id")
+    private int id;
 
-    private String name;
+    @Column(name="role")
+    private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 }

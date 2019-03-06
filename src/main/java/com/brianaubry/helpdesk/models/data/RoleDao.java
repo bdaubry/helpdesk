@@ -8,4 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface RoleDao extends JpaRepository<Role, Integer> {
+    Role findByrole(String role);
 }

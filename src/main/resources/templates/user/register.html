@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<!--TODO: style form, add error validation messages-->
+<form method="post" th:object="${user}">
+    <div class="form-group">
+        <label th:for="firstName">First Name</label>
+        <input class="form-control" th:field="*{firstName}" />
+        <span th:errors="*{firstName}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label th:for="lastName">Last Name</label>
+        <input class="form-control" th:field="*{lastName}" />
+        <span th:errors="*{lastName}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label th:for="email">E-mail Address</label>
+        <input type="email" class="form-control" th:field="*{email}" />
+        <span th:errors="*{email}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label th:for="password">Password</label>
+        <input type="password" class="form-control" th:field="*{password}" />
+        <span th:errors="*{password}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label th:for="passwordConfirm">Confirm Password</label>
+        <input type="password" class="form-control" th:field="*{passwordConfirm}" />
+        <span th:errors="*{passwordConfirm}" class="error"></span>
+    </div>
+    <input type="submit" value="Create Account"/>
+</form>
+
+
+</body>
+</html>

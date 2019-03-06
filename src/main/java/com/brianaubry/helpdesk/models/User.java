@@ -14,23 +14,32 @@ public class User {
     @GeneratedValue
     private int id;
 
-    @NotNull
-    private String name;
+    @Column(name="firstName")
+    private String firstName;
 
-    @ManyToMany
-    private Set<Role> roles;
+    @Column(name="lastName")
+    private String lastName;
 
     @NotNull
     @Size(min=3, max=12)
+    @Column(name="username")
     private String username;
+
+    @Column(name="email")
+    private String email;
 
     @NotNull
     @Size(min=8)
+    @Column(name="password")
     private String password;
 
     @NotNull
     @Transient
     private String passwordConfirm;
+
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
+    private Set<Role> roles;
 
     @OneToMany
     private List<Ticket> createdTickets = new ArrayList<>();
@@ -42,21 +51,24 @@ public class User {
 
     }
 
-    public User(String name, Role role, String username) {
-        this.name = name;
-        this.username = username;
-    }
-
     public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {
@@ -65,6 +77,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

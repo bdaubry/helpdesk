@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
-    @GetMapping("login")
+    @RequestMapping(value="login", method=RequestMethod.GET)
     public String login(Model model){
 
         model.addAttribute("title", "Login");
@@ -27,7 +27,7 @@ public class UserController {
         return "user/login";
     }
 
-    @PostMapping("login")
+    @RequestMapping(value="login", method=RequestMethod.POST)
     public String handleLogin(Model model, @RequestParam String username, @RequestParam String password, Errors errors){
 
         if(errors.hasErrors()){
@@ -35,18 +35,36 @@ public class UserController {
             return "user/login";
         }
 
-
         securityService.autoLogin(username,password);
 
         return "redirect:";
     }
 
-    @GetMapping("adminCreate")
-    public void createAdminAccount(){
-        User admin = new User();
-        admin.setUsername("admin");
-        admin.setPassword("password");
-        admin.setRoles("ADMIN");
+    @RequestMapping(value="register", method = RequestMethod.GET)
+    public String displayRegisterForm(Model model){
+
+        model.addAttribute(new User());
+
+        return "user/register";
+    }
+
+    @RequestMapping(value="register", method = RequestMethod.POST)
+    public String handleRegistration(Model model, @ModelAttribute User newUser, Errors errors) {
+
+        if(errors.hasErrors()) {
+            return "user/register";
+        } else {
+            model.addAttribute("msg", "User Registered Successfully");
+            model.addAttribute("user", new User());
+        }
+
+        System.out.println(newUser);
+
+        userService.save(newUser);
+
+        securityService.autoLogin(newUser.getUsername(),newUser.getPassword());
+
+        return "user/register";
     }
 
 }
