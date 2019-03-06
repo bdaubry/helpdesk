@@ -7,7 +7,8 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <!--TODO: style form, add error validation messages-->
-<form method="post" th:object="${user}">
+<div class="align-self-md-center">
+<form method="post" th:action="@{/user/register}" th:object="${user}">
     <div class="form-group">
         <label th:for="firstName">First Name</label>
         <input class="form-control" th:field="*{firstName}" />
@@ -35,7 +36,7 @@
     </div>
     <input type="submit" value="Create Account"/>
 </form>
-
+</div>
 
 </body>
 </html>

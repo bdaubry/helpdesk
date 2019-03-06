@@ -53,16 +53,15 @@ public class UserController {
 
         if(errors.hasErrors()) {
             return "user/register";
-        } else {
-            model.addAttribute("msg", "User Registered Successfully");
-            model.addAttribute("user", new User());
         }
 
-        System.out.println(newUser);
+        Character firstLetter = newUser.getFirstName().charAt(0);
+
+        String username = firstLetter.toString() + newUser.getLastName();
+
+        newUser.setUsername(username.toLowerCase());
 
         userService.save(newUser);
-
-        securityService.autoLogin(newUser.getUsername(),newUser.getPassword());
 
         return "user/register";
     }
