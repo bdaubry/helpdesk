@@ -1,4 +1,4 @@
-package com.brianaubry.helpdesk.controllers;
+package com.brianaubry.helpdesk.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

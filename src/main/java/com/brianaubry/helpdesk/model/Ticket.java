@@ -1,4 +1,4 @@
-package com.brianaubry.helpdesk.models;
+package com.brianaubry.helpdesk.model;
 
 import org.springframework.data.annotation.CreatedDate;
 

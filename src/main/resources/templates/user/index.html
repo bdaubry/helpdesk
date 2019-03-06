@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div class="container">
+    <h2>Hello <span th:utext="${userName}"></span>, this will be the homepage of a user to view their tickets</h2>
+    <a th:href="@{/logout}">Sign out</a>
+</div>
+
+</body>
+</html>

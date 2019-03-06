@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div class="container">
+    <div class="alert alert-danger" role="alert" th:if="${param.error}">
+        The email or password is incorrect!
+    </div>
+    <form th:action="@{/user/login}" method="post" >
+        <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+        <label for="email" class="sr-only">Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus >
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="remember-me" /> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <div class="margin-top20 text-center"> Don't have an account? <a th:href="@{/user/create}">Create an account</a></div>
+    </form>
+</div>
+</body>
+</html>
