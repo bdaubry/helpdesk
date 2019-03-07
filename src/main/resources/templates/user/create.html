@@ -9,19 +9,18 @@
 <div class="container">
     <form class="form-horizontal" role="form" method="POST" th:action="@{/user/create}" th:object="${user}">
         <div class="row">
-            <div class="col-md-3"></div>
+            <div class="col-md-3 "></div>
             <div class="col-md-6">
                 <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md text-center">
                 <h2>Register New User</h2>
-                <hr>
             </div>
         </div>
+        <hr/>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
                 <label for="firstname">First Name</label>
@@ -59,7 +58,7 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
                         <input type="text" th:field="*{email}" class="form-control" id="email"
-                               placeholder="username@jackrutorial.com" required autofocus>
+                               placeholder="username@email.com" required autofocus>
                     </div>
                 </div>
             </div>
@@ -91,8 +90,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-6"></div>
+            <div class="col-md-3 text-right">
                 <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
             </div>
         </div>
