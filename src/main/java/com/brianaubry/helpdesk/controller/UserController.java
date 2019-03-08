@@ -37,7 +37,7 @@ public class UserController {
         model.addAttribute("loggedInUser", user);
         model.addAttribute("userName", user.getFirstname() + " " + user.getLastname());
         model.addAttribute("isAdmin", user.getRoles().contains(roleRepository.findByRole("ADMIN")));
-
+        model.addAttribute("isUser", user.getRoles().contains(roleRepository.findByRole("USER")));
         return "user/index";
     }
 

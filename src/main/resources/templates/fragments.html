@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <title th:text="${title}">Helpdesk</title>
@@ -45,10 +45,13 @@
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
         </ul>
-        <ul th:switch="${}" class="navbar-nav navbar-right">
-            <li th:case="${'ADMIN'}" class="nav-item">USER LOGGED IN</li>
-            <li th:case="*" class="nav-item"><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+        <ul class="navbar-nav navbar-right">
+            <li th:if="${isAdmin || isUser }" th:text="${loggedInUser.getEmail()}" class="nav-item"></li>
+            <li th:if="${NOT isAdmin && NOT isUser}" class="nav-item"><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
         </ul>
+        <!--<ul class="navbar-nav navbar-right">-->
+            <!--<li class="nav-item"><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>-->
+        <!--</ul>-->
         <!--<form class="form-inline my-2 my-lg-1">-->
             <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
             <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
