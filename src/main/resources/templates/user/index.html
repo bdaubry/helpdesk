@@ -9,6 +9,11 @@
 <div class="container">
     <h2>Hello <span th:utext="${userName}"></span>, this will be the homepage of a user to view their tickets</h2>
     <a th:href="@{/user/logout}">Sign out</a>
+
+    <ul th:switch="${}" class="navbar-nav navbar-right">
+        <li th:case="${'ADMIN'}" class="nav-item">USER LOGGED IN</li>
+        <li th:case="*" class="nav-item"><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+    </ul>
 </div>
 
 </body>
