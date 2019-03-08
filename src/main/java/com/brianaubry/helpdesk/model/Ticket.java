@@ -2,13 +2,11 @@ package com.brianaubry.helpdesk.model;
 
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Ticket {
@@ -30,6 +28,10 @@ public class Ticket {
     private Date dateClosed;
 
     private String status;
+
+    @OneToMany
+    @JoinColumn(name = "ticket_id")
+    private List<Ticket> tickets;
 
     @ManyToOne
     private User createdBy;
