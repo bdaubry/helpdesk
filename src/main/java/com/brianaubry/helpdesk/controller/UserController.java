@@ -23,9 +23,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login(Model model){
         return "user/login";
@@ -36,9 +33,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         model.addAttribute("loggedInUser", user);
-        model.addAttribute("userName", user.getFirstname() + " " + user.getLastname());
-        model.addAttribute("isAdmin", user.getRoles().contains(roleRepository.findByRole("ADMIN")));
-        model.addAttribute("isUser", user.getRoles().contains(roleRepository.findByRole("USER")));
+        model.addAttribute("isUser", userService.isUser(user));
         return "user/index";
     }
 

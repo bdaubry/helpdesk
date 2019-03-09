@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "ticket")
 public class Ticket {
 
     @Id
@@ -29,9 +30,9 @@ public class Ticket {
 
     private String status;
 
-    @OneToMany
-    @JoinColumn(name = "ticket_id")
-    private List<Ticket> tickets;
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="ticket_status", joinColumns=@JoinColumn(name="ticket_id"), inverseJoinColumns=@JoinColumn(name="status_id"))
+    private List<Status> updates;
 
     @ManyToOne
     private User createdBy;
@@ -102,5 +103,13 @@ public class Ticket {
 
     public void setAssignedTo(User assignedTo) {
         this.assignedTo = assignedTo;
+    }
+
+    public List<Status> getUpdates() {
+        return updates;
+    }
+
+    public void setUpdates(List<Status> updates) {
+        this.updates = updates;
     }
 }

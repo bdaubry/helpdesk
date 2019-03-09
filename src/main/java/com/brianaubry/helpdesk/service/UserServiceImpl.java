@@ -29,6 +29,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Role findRoleByUser(String role) {
+        return roleRepository.findByRole(role);
+    }
+
+    @Override
+    public boolean isAdmin(User user) {
+        return user.getRoles().contains(findRoleByUser("ADMIN"));
+    }
+
+    @Override
+    public boolean isUser(User user) {
+        return user.getRoles().contains(findRoleByUser("USER"));
+    }
+
+    @Override
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);

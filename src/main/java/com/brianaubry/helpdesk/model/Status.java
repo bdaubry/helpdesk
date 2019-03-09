@@ -8,29 +8,33 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-public class Update {
+@Table(name = "status")
+public class Status {
 
     @Id
     @GeneratedValue
+    @Column(name="status_id")
     private int id;
 
     @NotNull
     @Size(min = 5, max = 20)
+
     private String title;
 
     @NotNull
     private String description;
 
-    @ManyToOne
-    private Ticket ticket;
-
     @CreatedDate
     private Date updateDate;
 
-    private User author;
+    private String author;
 
-    public Update() {
+    public Status() {
 
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -49,14 +53,6 @@ public class Update {
         this.description = description;
     }
 
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
-
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -65,7 +61,11 @@ public class Update {
         this.updateDate = updateDate;
     }
 
-    public User getAuthor() {
+    public String getAuthor() {
         return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
