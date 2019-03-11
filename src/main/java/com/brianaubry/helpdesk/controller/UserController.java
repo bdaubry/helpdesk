@@ -25,6 +25,20 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login(Model model){
+
+//        User adminExists = userService.findUserByEmail("admin@admin.com");
+//
+//        if(adminExists == null){
+//            User admin = new User();
+//            admin.setFirstname("admin");
+//            admin.setLastname("admin");
+//            admin.setEmail("admin@admin.com");
+//            admin.setPassword("admin");
+//            userService.saveUser(admin);
+//        }
+//
+//        System.out.println(adminExists.getPassword());
+
         return "user/login";
     }
 
@@ -34,6 +48,8 @@ public class UserController {
         User user = userService.findUserByEmail(auth.getName());
         model.addAttribute("loggedInUser", user);
         model.addAttribute("isUser", userService.isUser(user));
+        model.addAttribute("isAdmin", userService.isAdmin(user));
+
         return "user/index";
     }
 
