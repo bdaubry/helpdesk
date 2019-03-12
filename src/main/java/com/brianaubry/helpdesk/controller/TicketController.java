@@ -27,14 +27,17 @@ public class TicketController {
     TicketRepository ticketRepository;
 
     @ModelAttribute("loggedInUser")
-    public User populateUserDetails() {
+    public User populateUserDetails(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        return user;
+        User loggedInUser = userService.findUserByEmail(auth.getName());
+        model.addAttribute("isUser", userService.isUser(loggedInUser));
+        model.addAttribute("isAdmin", userService.isAdmin(loggedInUser));
+        return loggedInUser;
     }
 
-    @RequestMapping(value="/")
-    public String ticketIndex(Model model){
+    @RequestMapping(value="")
+    public String ticketIndex(Model model, @ModelAttribute User loggedInUser){
+        populateUserDetails(model);
         model.addAttribute("ticket","this is the ticket page");
         return "ticket/index";
     }

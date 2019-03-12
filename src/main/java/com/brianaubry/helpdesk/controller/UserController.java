@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.jws.WebParam;
 import javax.validation.Valid;
 
 @Controller
@@ -22,6 +23,15 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @ModelAttribute("loggedInUser")
+    public User populateUserDetails(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User loggedInUser = userService.findUserByEmail(auth.getName());
+        model.addAttribute("isUser", userService.isUser(loggedInUser));
+        model.addAttribute("isAdmin", userService.isAdmin(loggedInUser));
+        return loggedInUser;
+    }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login(Model model){
@@ -43,12 +53,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String userHome(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        model.addAttribute("loggedInUser", user);
-        model.addAttribute("isUser", userService.isUser(user));
-        model.addAttribute("isAdmin", userService.isAdmin(user));
+    public String userHome(Model model, @ModelAttribute User loggedInUser){
+        populateUserDetails(model);
 
         return "user/index";
     }

@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,18 +22,21 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    @ModelAttribute("loggedInUser")
+    public User populateUserDetails(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User loggedInUser = userService.findUserByEmail(auth.getName());
+        model.addAttribute("isUser", userService.isUser(loggedInUser));
+        model.addAttribute("isAdmin", userService.isAdmin(loggedInUser));
+        return loggedInUser;
+    }
 
     @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String create(Model model){
+    public String create(Model model, @ModelAttribute User loggedInUser){
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        model.addAttribute("loggedInUser", user);
-        model.addAttribute("userName", user.getFirstname() + " " + user.getLastname());
-        model.addAttribute("isAdmin", user.getRoles().contains(roleRepository.findByRole("ADMIN")));
-        model.addAttribute("isUser", user.getRoles().contains(roleRepository.findByRole("USER")));
+        populateUserDetails(model);
+        model.addAttribute("userName", loggedInUser.getFirstname() + " " + loggedInUser.getLastname());
+
         User newUser = new User();
         model.addAttribute("user", newUser);
 
