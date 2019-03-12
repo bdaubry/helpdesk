@@ -47,16 +47,15 @@
             <!--</li>-->
         </ul>
         <ul class="navbar-nav navbar-right">
-            <li th:if="${isAdmin || isUser }"  class="nav-item dropdown">
+            <li  class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false" th:text="${loggedInUser.getEmail()}">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/">Account</a>
-                    <a class="dropdown-item" th:href="@{/user/logout}">Sign Out</a>
+                    <a class="dropdown-item" th:href="@{/logout}">Sign Out</a>
                 </div>
             </li>
-            <li th:if="${NOT isAdmin && NOT isUser}" class="nav-item"><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
         </ul>
         <!--<ul class="navbar-nav navbar-right">-->
             <!--<li class="nav-item"><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>-->

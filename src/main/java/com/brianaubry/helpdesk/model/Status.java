@@ -12,7 +12,7 @@ import java.util.Date;
 public class Status {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="status_id")
     private int id;
 

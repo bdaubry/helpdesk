@@ -1,5 +1,6 @@
 package com.brianaubry.helpdesk.model;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -13,17 +14,19 @@ import java.util.List;
 public class Ticket {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
-    @Size(min=1, max=25)
+    @Size(min=1, max=50)
     private String title;
 
     @NotNull
+    @Size(min=1, max=500)
     private String description;
 
     @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateOpened;
 
     private Date dateClosed;
@@ -35,6 +38,7 @@ public class Ticket {
     private List<Status> updates;
 
     @ManyToOne
+    @CreatedBy
     private User createdBy;
 
     @ManyToOne
@@ -71,6 +75,10 @@ public class Ticket {
 
     public Date getDateOpened() {
         return dateOpened;
+    }
+
+    public void setDateOpened(Date dateOpened) {
+        this.dateOpened = dateOpened;
     }
 
     public Date getDateClosed() {

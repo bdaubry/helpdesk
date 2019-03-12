@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<form class="form-horizontal" method="POST" th:action="@{/ticket/new}" th:object="${ticket}">
+    <fieldset>
+        <!-- Form Name -->
+        <legend>Create a new ticket</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="title">Title</label>
+            <div class="col-md-4">
+                <input id="title" name="title" th:field="*{title}" type="text" placeholder="" class="form-control input-md">
+
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="description">Description</label>
+            <div class="col-md-4">
+                <textarea class="form-control" th:field="*{description}" id="description" name="description"></textarea>
+            </div>
+        </div>
+
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="attachments">Attachments</label>
+            <div class="col-md-4">
+                <input id="attachments" name="attachments" class="input-file" type="file">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success">Create ticket</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<table class="table">
+    <tr th:colspan="2">
+        <th>Ticket Number</th>
+        <td th:text="${ticket.id}"></td>
+        <th>Date Opened</th>
+        <td th:text="${ticket.dateOpened}">DATE</td>
+    </tr>
+    <tr>
+        <th>Title</th>
+        <td th:text="${ticket.title}"></td>
+        <th>Opened By</th>
+        <td th:text="${ticket.createdBy.email}"></td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td colspan="3" th:text="${ticket.description}"></td>
+    </tr>
+    <tr>
+        <th></th>
+        <td></td>
+    </tr>
+</table>
+
+</body>
+</html>

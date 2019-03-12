@@ -6,7 +6,22 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<span th:text="${ticket}"></span>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Ticket Number</th>
+            <th scope="col">Ticket Title</th>
+            <th scope="col">Date Opened</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tr th:each="ticket : ${openTickets}">
+        <td th:text="${ticket.id}"></td>
+        <td th:text="${ticket.title}"></td>
+        <td th:text="${ticket.dateOpened}"></td>
+        <td th:text="${ticket.status}"></td>
+    </tr>
+</table>
 
 </body>
 </html>
