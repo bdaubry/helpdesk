@@ -33,25 +33,6 @@ public class UserController {
         return loggedInUser;
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String login(Model model){
-
-//        User adminExists = userService.findUserByEmail("admin@admin.com");
-//
-//        if(adminExists == null){
-//            User admin = new User();
-//            admin.setFirstname("admin");
-//            admin.setLastname("admin");
-//            admin.setEmail("admin@admin.com");
-//            admin.setPassword("admin");
-//            userService.saveUser(admin);
-//        }
-//
-//        System.out.println(adminExists.getPassword());
-
-        return "user/login";
-    }
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String userHome(Model model, @ModelAttribute User loggedInUser){
         populateUserDetails(model);
