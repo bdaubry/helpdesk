@@ -13,7 +13,7 @@ Tracking and statistics will be built in, so that the IT department can see how 
  
 ## Built with
 
-* [Spring Boot](https://spring.io/projects/spring-boot) - Framework (Spring Security, 
+* [Spring Boot](https://spring.io/projects/spring-boot) - Framework
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Thymeleaf](https://www.thymeleaf.org/) - Web templating
 * [jQuery/AJAX](https://jquery.com/) - Time tracking
