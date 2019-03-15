@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tr th:each="ticket : ${openTickets}">
-        <td th:text="${ticket.id}"></td>
+        <td ><a th:text="${ticket.id}" th:href="@{'/ticket/'+${ticket.id}}"></a></td>
         <td th:text="${ticket.title}"></td>
         <td th:text="${ticket.dateOpened}"></td>
         <td th:text="${ticket.status}"></td>

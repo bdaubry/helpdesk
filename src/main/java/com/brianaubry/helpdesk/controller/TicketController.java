@@ -2,6 +2,7 @@ package com.brianaubry.helpdesk.controller;
 
 import com.brianaubry.helpdesk.model.Ticket;
 import com.brianaubry.helpdesk.model.User;
+import com.brianaubry.helpdesk.repository.StatusRepository;
 import com.brianaubry.helpdesk.repository.TicketRepository;
 import com.brianaubry.helpdesk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class TicketController {
     @Autowired
     TicketRepository ticketRepository;
 
+    StatusRepository statusRepository;
+
     private String id;
 
     @ModelAttribute("loggedInUser")
@@ -40,8 +43,19 @@ public class TicketController {
 
     @RequestMapping(value="{id}")
     public String ticketIndexSingle(Model model, @PathVariable("id") int id){
+        Ticket activeTicket = ticketRepository.findById(id);
+        model.addAttribute("ticket", activeTicket);
+        model.addAttribute("statuses", activeTicket.getUpdates());
 
-        model.addAttribute("ticket", ticketRepository.findById(id));
+        System.out.println(activeTicket.getUpdates());
+
+        return "ticket/ticket-detail";
+    }
+
+    @PostMapping(value = "{id}/add")
+    public String addStatusUpdate(Model model, @PathVariable("id") int id){
+
+
 
         return "ticket/ticket-detail";
     }

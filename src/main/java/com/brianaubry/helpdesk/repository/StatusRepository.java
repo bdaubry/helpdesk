@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository("updateRepository")
+@Repository("statusRepository")
 @Transactional
-public interface UpdateRepository extends JpaRepository<Status, Integer> {
+public interface StatusRepository extends JpaRepository<Status, Integer> {
+
 }
