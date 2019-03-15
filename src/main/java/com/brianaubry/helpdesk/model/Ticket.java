@@ -120,4 +120,8 @@ public class Ticket {
     public void setUpdates(List<Status> updates) {
         this.updates = updates;
     }
+
+    public void addUpdate(Status update){
+        updates.add(update);
+    }
 }

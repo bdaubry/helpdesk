@@ -9,7 +9,7 @@ public class AddStatusForm {
 
     private Ticket ticket;
 
-    private Iterable<Status> statuses;
+    private Status status;
 
     @NotNull
     private int ticketId;
@@ -19,7 +19,7 @@ public class AddStatusForm {
 
     public AddStatusForm(Ticket ticket, Iterable<Status> statuses){
         this.ticket = ticket;
-        this.statuses = statuses;
+        this.status = status;
     }
 
     public AddStatusForm(){}
@@ -28,8 +28,8 @@ public class AddStatusForm {
         return ticket;
     }
 
-    public Iterable<Status> getStatuses() {
-        return statuses;
+    public Status getStatus() {
+        return status;
     }
 
     public int getTicketId() {

@@ -1,5 +1,6 @@
 package com.brianaubry.helpdesk.controller;
 
+import com.brianaubry.helpdesk.forms.AddStatusForm;
 import com.brianaubry.helpdesk.model.Status;
 import com.brianaubry.helpdesk.model.Ticket;
 import com.brianaubry.helpdesk.model.User;
@@ -52,16 +53,15 @@ public class TicketController {
         model.addAttribute("statuses", activeTicket.getUpdates());
         model.addAttribute("status", newStatus);
 
-        System.out.println(activeTicket.getUpdates().isEmpty());
-
         return "ticket/ticket-detail";
     }
 
     @PostMapping(value = "{id}/add")
     public String addStatusUpdate(Model model, @PathVariable("id") int id, @Valid Status newStatus){
-
+        Ticket activeTicket = ticketRepository.findById(id);
         User activeUser = populateUserDetails(model);
         newStatus.setAuthor(activeUser.getEmail());
+        activeTicket.addUpdate(newStatus);
         statusRepository.save(newStatus);
         return "redirect:/ticket/" + id;
     }
