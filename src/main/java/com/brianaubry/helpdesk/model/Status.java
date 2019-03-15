@@ -17,14 +17,14 @@ public class Status {
     private int id;
 
     @NotNull
-    @Size(min = 5, max = 20)
-
+    @Size(min = 5, max = 50)
     private String title;
 
     @NotNull
     private String description;
 
     @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
     private String author;

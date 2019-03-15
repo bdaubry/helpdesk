@@ -1,5 +1,6 @@
 package com.brianaubry.helpdesk.controller;
 
+import com.brianaubry.helpdesk.model.Status;
 import com.brianaubry.helpdesk.model.Ticket;
 import com.brianaubry.helpdesk.model.User;
 import com.brianaubry.helpdesk.repository.StatusRepository;
@@ -28,6 +29,7 @@ public class TicketController {
     @Autowired
     TicketRepository ticketRepository;
 
+    @Autowired
     StatusRepository statusRepository;
 
     private String id;
@@ -44,20 +46,24 @@ public class TicketController {
     @RequestMapping(value="{id}")
     public String ticketIndexSingle(Model model, @PathVariable("id") int id){
         Ticket activeTicket = ticketRepository.findById(id);
+        Status newStatus = new Status();
+
         model.addAttribute("ticket", activeTicket);
         model.addAttribute("statuses", activeTicket.getUpdates());
+        model.addAttribute("status", newStatus);
 
-        System.out.println(activeTicket.getUpdates());
+        System.out.println(activeTicket.getUpdates().isEmpty());
 
         return "ticket/ticket-detail";
     }
 
     @PostMapping(value = "{id}/add")
-    public String addStatusUpdate(Model model, @PathVariable("id") int id){
+    public String addStatusUpdate(Model model, @PathVariable("id") int id, @Valid Status newStatus){
 
-
-
-        return "ticket/ticket-detail";
+        User activeUser = populateUserDetails(model);
+        newStatus.setAuthor(activeUser.getEmail());
+        statusRepository.save(newStatus);
+        return "redirect:/ticket/" + id;
     }
 
     @RequestMapping(value={"", "/"})

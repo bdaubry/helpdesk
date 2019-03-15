@@ -29,13 +29,46 @@
     </tr>
 </table>
 
-<h2>Updates</h2>
+<h4>Updates</h4>
 
-<table class="table">
+<table th:unless="${!statuses.isEmpty()}" class="table">
     <tr>
-        <td>Update 1 goes here</td>
+        <td>No Updates</td>
     </tr>
 </table>
+
+<div th:if="${!statuses.isEmpty()}">
+    <table class="table">
+        <tr th:each="status : ${statuses}">
+            <td th:text="${status.getDescription()}"></td>
+            <td th:text="${status.getAuthor()}"></td>
+        </tr>
+    </table>
+</div>
+
+<h4>Add an update</h4>
+
+<form class="form-horizontal" method="POST" th:action="'/ticket/'+${ticket.id}+'/add'" th:object="${status}">
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="title">Title</label>
+        <div class="col-md-4">
+            <input id="title" name="title" th:field="*{title}" type="text" placeholder="" class="form-control input-md">
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="description">Description</label>
+        <div class="col-md-4">
+            <textarea class="form-control" th:field="*{description}" id="description" name="description"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-success">New Update</button>
+        </div>
+    </div>
+
+</form>
 
 </body>
 </html>
