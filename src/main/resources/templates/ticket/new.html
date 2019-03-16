@@ -15,8 +15,9 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="title">Title</label>
             <div class="col-md-4">
-                <input id="title" name="title" th:field="*{title}" type="text" placeholder="" class="form-control input-md">
-
+                <input id="title" name="title" th:field="*{title}" type="text" placeholder="" class="form-control input-md title-field">
+                <span th:errors="*{title}" class="error"></span><br/>
+                <span class="countdown"></span>
             </div>
         </div>
 
@@ -24,7 +25,9 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="description">Description</label>
             <div class="col-md-4">
-                <textarea class="form-control" th:field="*{description}" id="description" name="description"></textarea>
+                <textarea class="form-control description-field" th:field="*{description}" id="description" name="description"></textarea>
+                <span th:errors="*{description}" class="error"></span>
+
             </div>
         </div>
 

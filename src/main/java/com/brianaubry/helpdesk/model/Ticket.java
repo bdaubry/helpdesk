@@ -18,11 +18,11 @@ public class Ticket {
     private int id;
 
     @NotNull
-    @Size(min=1, max=50)
+    @Size(min=1, max=50, message = "Title too long (max 50 characters)")
     private String title;
 
     @NotNull
-    @Size(min=1, max=500)
+    @Size(min=1, max=500, message = "Description too long (max 500 characters)")
     private String description;
 
     @CreatedDate
