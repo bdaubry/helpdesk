@@ -31,6 +31,11 @@ public class AdminController {
         return loggedInUser;
     }
 
+    @RequestMapping(value = "")
+    public String adminConsole(Model model){
+        return "admin/admin";
+    }
+
     @RequestMapping(value = "create", method = RequestMethod.GET)
     public String create(Model model, @ModelAttribute User loggedInUser){
 

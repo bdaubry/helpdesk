@@ -17,7 +17,7 @@ public class AddStatusForm {
     @NotNull
     private int statusId;
 
-    public AddStatusForm(Ticket ticket, Iterable<Status> statuses){
+    public AddStatusForm(Ticket ticket, Status status){
         this.ticket = ticket;
         this.status = status;
     }
