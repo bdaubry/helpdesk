@@ -23,8 +23,6 @@ public class IndexController {
     public User populateUserDetails(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User loggedInUser = userService.findUserByEmail(auth.getName());
-        model.addAttribute("isUser", userService.isUser(loggedInUser));
-        model.addAttribute("isAdmin", userService.isAdmin(loggedInUser));
         return loggedInUser;
     }
 

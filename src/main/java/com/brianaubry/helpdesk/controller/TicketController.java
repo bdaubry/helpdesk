@@ -3,6 +3,7 @@ package com.brianaubry.helpdesk.controller;
 import com.brianaubry.helpdesk.forms.AddStatusForm;
 import com.brianaubry.helpdesk.model.Status;
 import com.brianaubry.helpdesk.model.Ticket;
+import com.brianaubry.helpdesk.model.TicketStatus;
 import com.brianaubry.helpdesk.model.User;
 import com.brianaubry.helpdesk.repository.StatusRepository;
 import com.brianaubry.helpdesk.repository.TicketRepository;
@@ -53,6 +54,9 @@ public class TicketController {
         model.addAttribute("ticket", activeTicket);
         model.addAttribute("statuses", activeTicket.getUpdates());
         model.addAttribute("status", newStatus);
+        model.addAttribute("ticket-status", TicketStatus.values());
+
+        System.out.println(TicketStatus.values());
 
         return "ticket/ticket-detail";
     }
