@@ -77,6 +77,8 @@ public class TicketController {
         List<Ticket> openTickets = ticketRepository.findAll();
         model.addAttribute("openTickets", openTickets);
 
+        //TODO: show only tickets that are assigned to the logged in user
+
         return "ticket/index";
     }
 
@@ -105,5 +107,7 @@ public class TicketController {
 
         return "redirect:/ticket/" + newTicket.getId();
     }
+
+    //TODO: close ticket process/methods, update ticket process/methods
 
 }

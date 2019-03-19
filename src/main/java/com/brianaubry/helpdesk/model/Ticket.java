@@ -1,5 +1,6 @@
 package com.brianaubry.helpdesk.model;
 
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -31,7 +32,9 @@ public class Ticket {
 
     private Date dateClosed;
 
-    private String status;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdated;
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="ticket_status", joinColumns=@JoinColumn(name="ticket_id"), inverseJoinColumns=@JoinColumn(name="status_id"))
@@ -87,14 +90,6 @@ public class Ticket {
 
     public void setDateClosed(Date dateClosed) {
         this.dateClosed = dateClosed;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public User getCreatedBy() {
