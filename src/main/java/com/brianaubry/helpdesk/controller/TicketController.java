@@ -110,4 +110,11 @@ public class TicketController {
 
     //TODO: close ticket process/methods, update ticket process/methods
 
+    @PostMapping(value = "{id}/update")
+    public String processTicketUpdate(Model model, @PathVariable("id") int id, @Valid Ticket newTicket, Errors errors){
+        //TODO: update methods
+
+        return "ticket/update";
+    }
+
 }
