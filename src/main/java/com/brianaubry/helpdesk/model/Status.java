@@ -1,5 +1,6 @@
 package com.brianaubry.helpdesk.model;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "status")
-public class Status {
+public class Status implements Comparable<Status>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,7 @@ public class Status {
     @NotNull
     private String description;
 
-    @CreatedDate
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
@@ -68,4 +69,13 @@ public class Status {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    @Override
+    public int compareTo(Status status){
+        if (getUpdateDate() == null || status.getUpdateDate() == null){
+            return 0;
+        }
+        return getUpdateDate().compareTo(status.getUpdateDate());
+    }
+
 }

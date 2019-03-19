@@ -39,9 +39,15 @@
 
 <div th:if="${!statuses.isEmpty()}">
     <table class="table">
+        <tr>
+            <th>Update</th>
+            <th>Author</th>
+            <th>Date</th>
+        </tr>
         <tr th:each="status : ${statuses}">
             <td th:text="${status.getDescription()}"></td>
             <td th:text="${status.getAuthor()}"></td>
+            <td th:text="${status.getUpdateDate()}"></td>
         </tr>
     </table>
 </div>

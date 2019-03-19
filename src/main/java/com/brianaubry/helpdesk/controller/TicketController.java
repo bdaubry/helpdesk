@@ -17,10 +17,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "ticket")
@@ -51,12 +48,14 @@ public class TicketController {
         Ticket activeTicket = ticketRepository.findById(id);
         Status newStatus = new Status();
 
+        List<Status> updates = activeTicket.getUpdates();
+        Collections.reverse(updates);
+
         model.addAttribute("ticket", activeTicket);
         model.addAttribute("statuses", activeTicket.getUpdates());
         model.addAttribute("status", newStatus);
         model.addAttribute("ticket-status", TicketStatus.values());
 
-        System.out.println(TicketStatus.values());
 
         return "ticket/ticket-detail";
     }
