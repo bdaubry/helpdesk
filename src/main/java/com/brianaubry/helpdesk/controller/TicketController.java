@@ -53,8 +53,7 @@ public class TicketController {
         model.addAttribute("ticket", activeTicket);
         model.addAttribute("statuses", activeTicket.getUpdates());
         model.addAttribute("status", newStatus);
-        model.addAttribute("ticket-status", Stage.values());
-
+        model.addAttribute("stages", Stage.values());
 
         return "ticket/ticket-detail";
     }

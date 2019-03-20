@@ -50,6 +50,7 @@ public class Ticket {
     private Stage stage;
 
     public Ticket() {
+        this.stage = Stage.OPEN;
     }
 
     public Ticket(String title, String description, User createdBy) {

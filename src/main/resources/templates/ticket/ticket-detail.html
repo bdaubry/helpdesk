@@ -16,18 +16,40 @@
     <tr>
         <th>Title</th>
         <td th:text="${ticket.title}"></td>
+        <th>Last Update</th>
+        <td th:text="${ticket.lastUpdated}"></td>
+    </tr>
+    <tr>
         <th>Opened By</th>
         <td th:text="${ticket.createdBy.email}"></td>
-    </tr>
-    <tr>
-        <th>Description</th>
-        <td colspan="3" th:text="${ticket.description}"></td>
-    </tr>
-    <tr>
-        <th></th>
-        <td></td>
+        <th>Assigned to</th>
+        <td th:text="${ticket.assignedTo}"></td>
     </tr>
 </table>
+
+<div class="container ">
+    <form class="form-horizontal" method="post" th:action="'/ticket/'+${ticket.id}+'/add'" th:object="${ticket}">
+        <div class="form-group">
+            <div class="row justify-content-center">
+                <label class="col-md-8 control-label col-md-offset-2" for="ticket-status">Status</label>
+                <div class="col-md-8">
+                    <!--<input id="ticket-status" name="ticket-status" th:field="*{stage}" type="text" placeholder="" class="form-control input-md">-->
+                    <select id="ticket-status" name="ticket-status" th:field="*{stage}" class="custom-select">
+                        <option th:each="stage : ${stages}" th:value="${stage}" th:text="${stage.name}" th:selected="${ticket.stage}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row justify-content-center">
+                <label class="col-md-8 control-label " for="ticket-description">Description</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" th:field="*{description}" id="ticket-description" name="ticket-description" th:text="*{description}"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
 <h4>Updates</h4>
 
@@ -56,21 +78,26 @@
 
 <form class="form-horizontal" method="POST" th:action="'/ticket/'+${ticket.id}+'/add'" th:object="${status}">
     <div class="form-group">
-        <label class="col-md-4 control-label" for="title">Title</label>
-        <div class="col-md-4">
-            <input id="title" name="title" th:field="*{title}" type="text" placeholder="" class="form-control input-md">
-
+        <div class="row justify-content-center">
+            <label class="col-md-8 control-label" for="title">Title</label>
+            <div class="col-md-8">
+                <input id="title" name="title" th:field="*{title}" type="text" placeholder="" class="form-control input-md">
+            </div>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-4 control-label" for="description">Description</label>
-        <div class="col-md-4">
-            <textarea class="form-control" th:field="*{description}" id="description" name="description"></textarea>
+        <div class="row justify-content-center">
+            <label class="col-md-8 control-label" for="description">Description</label>
+            <div class="col-md-8">
+                <textarea class="form-control" th:field="*{description}" id="description" name="description"></textarea>
+            </div>
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-success">New Update</button>
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-right">
+                <button type="submit" class="btn btn-success">New Update</button>
+            </div>
         </div>
     </div>
 
