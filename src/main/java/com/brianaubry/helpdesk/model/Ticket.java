@@ -119,4 +119,12 @@ public class Ticket {
     public void addUpdate(Status update){
         updates.add(update);
     }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 }

@@ -66,6 +66,7 @@ public class TicketController {
         User activeUser = populateUserDetails(model);
         newStatus.setAuthor(activeUser.getEmail());
         activeTicket.addUpdate(newStatus);
+        activeTicket.setLastUpdated(new Date());
         statusRepository.save(newStatus);
         return "redirect:/ticket/" + id;
     }

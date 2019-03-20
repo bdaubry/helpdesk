@@ -12,14 +12,14 @@
             <th scope="col">Ticket Number</th>
             <th scope="col">Ticket Title</th>
             <th scope="col">Date Opened</th>
-            <th scope="col">Status</th>
+            <th scope="col">Last Updated</th>
         </tr>
     </thead>
     <tr th:each="ticket : ${openTickets}">
         <td ><a th:text="${ticket.id}" th:href="@{'/ticket/'+${ticket.id}}"></a></td>
         <td th:text="${ticket.title}"></td>
         <td th:text="${ticket.dateOpened}"></td>
-        <td th:text="${ticket.status}"></td>
+        <td th:text="${ticket.lastUpdated}"></td>
     </tr>
 </table>
 
