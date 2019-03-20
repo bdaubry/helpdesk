@@ -6,7 +6,7 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<table class="table">
+<table class="table col-md-10 offset-1">
     <tr th:colspan="2">
         <th>Ticket Number</th>
         <td th:text="${ticket.id}"></td>
@@ -27,11 +27,11 @@
     </tr>
 </table>
 
-<div class="container ">
+<div class="container">
     <form class="form-horizontal" method="post" th:action="'/ticket/'+${ticket.id}+'/add'" th:object="${ticket}">
         <div class="form-group">
-            <div class="row justify-content-center">
-                <label class="col-md-8 control-label col-md-offset-2" for="ticket-status">Status</label>
+            <div class="row justify-content-left">
+                <label class="col-md-8 control-label" for="ticket-status">Status</label>
                 <div class="col-md-8">
                     <!--<input id="ticket-status" name="ticket-status" th:field="*{stage}" type="text" placeholder="" class="form-control input-md">-->
                     <select id="ticket-status" name="ticket-status" th:field="*{stage}" class="custom-select">
@@ -53,14 +53,14 @@
 
 <h4>Updates</h4>
 
-<table th:unless="${!statuses.isEmpty()}" class="table">
+<table th:unless="${!statuses.isEmpty()}" class="table col-md-10 offset-1">
     <tr>
         <td>No Updates</td>
     </tr>
 </table>
 
 <div th:if="${!statuses.isEmpty()}">
-    <table class="table">
+    <table class="table col-md-10 offset-1">
         <tr>
             <th>Update</th>
             <th>Author</th>
