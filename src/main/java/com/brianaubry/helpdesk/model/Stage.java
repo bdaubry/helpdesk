@@ -1,6 +1,6 @@
 package com.brianaubry.helpdesk.model;
 
-public enum TicketStatus {
+public enum Stage {
 
     OPEN ("Open"),
     ASSIGNED ("Assigned"),
@@ -11,7 +11,7 @@ public enum TicketStatus {
 
     private final String name;
 
-    TicketStatus(String name) {this.name = name;}
+    Stage(String name) {this.name = name;}
 
     public String getName() {return name;}
 

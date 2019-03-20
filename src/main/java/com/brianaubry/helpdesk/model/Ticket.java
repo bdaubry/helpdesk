@@ -47,6 +47,8 @@ public class Ticket {
     @ManyToOne
     private User assignedTo;
 
+    private Stage stage;
+
     public Ticket() {
     }
 
@@ -126,5 +128,13 @@ public class Ticket {
 
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }
