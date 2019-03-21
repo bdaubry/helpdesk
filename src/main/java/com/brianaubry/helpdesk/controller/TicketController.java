@@ -42,33 +42,6 @@ public class TicketController {
         return loggedInUser;
     }
 
-    @RequestMapping(value="{id}")
-    public String ticketIndexSingle(Model model, @PathVariable("id") int id){
-        Ticket activeTicket = ticketRepository.findById(id);
-        Status newStatus = new Status();
-
-        List<Status> updates = activeTicket.getUpdates();
-        Collections.reverse(updates);
-
-        model.addAttribute("ticket", activeTicket);
-        model.addAttribute("statuses", activeTicket.getUpdates());
-        model.addAttribute("status", newStatus);
-        model.addAttribute("stages", Stage.values());
-
-        return "ticket/ticket-detail";
-    }
-
-    @PostMapping(value = "{id}/add")
-    public String addStatusUpdate(Model model, @PathVariable("id") int id, @Valid Status newStatus){
-        Ticket activeTicket = ticketRepository.findById(id);
-        User activeUser = populateUserDetails(model);
-        newStatus.setAuthor(activeUser.getEmail());
-        activeTicket.addUpdate(newStatus);
-        activeTicket.setLastUpdated(new Date());
-        statusRepository.save(newStatus);
-        return "redirect:/ticket/" + id;
-    }
-
     @RequestMapping(value={"", "/"})
     public String ticketIndex(Model model, @ModelAttribute User loggedInUser){
         populateUserDetails(model);
@@ -107,13 +80,47 @@ public class TicketController {
         return "redirect:/ticket/" + newTicket.getId();
     }
 
-    //TODO: close ticket process/methods, update ticket process/methods
+
+
+    @RequestMapping(value="{id}")
+    public String ticketIndexSingle(Model model, @PathVariable("id") int id){
+        Ticket activeTicket = ticketRepository.findById(id);
+        Status newStatus = new Status();
+
+        List<Status> updates = activeTicket.getUpdates();
+        Collections.reverse(updates);
+
+        model.addAttribute("ticket", activeTicket);
+        model.addAttribute("statuses", activeTicket.getUpdates());
+        model.addAttribute("status", newStatus);
+        model.addAttribute("stages", Stage.values());
+
+        return "ticket/ticket-detail";
+    }
+
+    @PostMapping(value = "{id}/add")
+    public String addStatusUpdate(Model model, @PathVariable("id") int id, @Valid Status newStatus){
+        Ticket activeTicket = ticketRepository.findById(id);
+        User activeUser = populateUserDetails(model);
+        newStatus.setAuthor(activeUser.getEmail());
+        activeTicket.addUpdate(newStatus);
+        activeTicket.setLastUpdated(new Date());
+        statusRepository.save(newStatus);
+        return "redirect:/ticket/" + id;
+    }
 
     @PostMapping(value = "{id}/update")
-    public String processTicketUpdate(Model model, @PathVariable("id") int id, @Valid Ticket newTicket, Errors errors){
+    public String processTicketUpdate(Model model, @PathVariable("id") int id, @Valid Ticket ticket, Errors errors){
         //TODO: update methods
+        Ticket activeTicket = ticketRepository.findById(id);
 
-        return "ticket/update";
+        activeTicket.setDescription(ticket.getDescription());
+        activeTicket.setStage(ticket.getStage());
+        ticketRepository.save(activeTicket);
+
+        return "redirect:/ticket/" + id;
     }
+
+    //TODO: close ticket process/methods, update ticket process/methods
 
 }
