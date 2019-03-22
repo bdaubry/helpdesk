@@ -2,109 +2,124 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
+    <body class="container">
+        <nav th:replace="fragments :: navigation"></nav>
 
-<nav th:replace="fragments :: navigation"></nav>
+        <div class="container">
+            <table class="table offset-md-2">
+                <tr class="row">
+                    <th class="col-md-2">Ticket Number</th>
+                    <td class="col-md-2" th:text="${ticket.id}"></td>
+                    <th class="col-md-2">Date Opened</th>
+                    <td class="col-md-2" th:text="${#dates.format(ticket.dateOpened, 'M/dd/yyyy h:mm a ')}">DATE</td>
+                </tr>
+                <tr class="row">
+                    <th class="col-md-2">Title</th>
+                    <td class="col-md-2" th:text="${ticket.title}"></td>
+                    <th class="col-md-2">Last Update</th>
+                    <td class="col-md-2" th:text="${#dates.format(ticket.lastUpdated, 'M/dd/yyyy h:mm a ')}"></td>
+                </tr>
+                <tr class="row">
+                    <th class="col-md-2">Opened By</th>
+                    <td class="col-md-2" th:text="${ticket.createdBy.email}"></td>
+                    <th class="col-md-2">Assigned to</th>
+                    <td class="col-md-2" th:text="${ticket.assignedTo != null} ? ${ticket.assignedTo} : 'Unassigned'">Unassigned</td>
+                </tr>
+            </table>
+        </div>
 
-<table class="table col-md-10 offset-md-1">
-    <tr th:colspan="2">
-        <th>Ticket Number</th>
-        <td th:text="${ticket.id}"></td>
-        <th>Date Opened</th>
-        <td th:text="${#dates.format(ticket.dateOpened, 'M/dd/yyyy h:mm a ')}">DATE</td>
-    </tr>
-    <tr>
-        <th>Title</th>
-        <td th:text="${ticket.title}"></td>
-        <th>Last Update</th>
-        <td th:text="${#dates.format(ticket.lastUpdated, 'M/dd/yyyy h:mm a ')}"></td>
-    </tr>
-    <tr>
-        <th>Opened By</th>
-        <td th:text="${ticket.createdBy.email}"></td>
-        <th>Assigned to</th>
-        <td th:text="${ticket.assignedTo != null} ? ${ticket.assignedTo} : 'Unassigned'">Unassigned</td>
-    </tr>
-</table>
+        <div class="container">
+            <form class="form-horizontal" method="post" th:action="'/ticket/'+${ticket.id}+'/update'" th:object="${ticket}">
+                <div class="form-group">
+                    <div class="row justify-content-center">
+                        <label class="col-md-8 control-label" for="ticket-status">Status</label>
+                    </div>
+                    <div class="row justify-content-center">
 
-<div class="container">
-    <form class="form-horizontal" method="post" th:action="'/ticket/'+${ticket.id}+'/update'" th:object="${ticket}">
-        <div class="form-group">
-            <div class="row justify-content-center">
-                <label class="col-md-8 control-label" for="ticket-status">Status</label>
-            </div>
-            <div class="row justify-content-center">
-
-                <div class="col-md-4">
-                    <!--<input id="ticket-status" name="ticket-status" th:field="*{stage}" type="text" placeholder="" class="form-control input-md">-->
-                    <select id="ticket-status" name="ticket-status" th:field="*{stage}" class="custom-select">
-                        <option th:each="stage : ${stages}" th:value="${stage}" th:text="${stage.name}" th:selected="${ticket.stage}"></option>
-                    </select>
+                        <div class="col-md-4">
+                            <!--<input id="ticket-status" name="ticket-status" th:field="*{stage}" type="text" placeholder="" class="form-control input-md">-->
+                            <select id="ticket-status" name="ticket-status" th:field="*{stage}" class="custom-select">
+                                <option th:each="stage : ${stages}" th:value="${stage}" th:text="${stage.name}" th:selected="${ticket.stage}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
                 </div>
-                <div class="col-md-4"></div>
-            </div>
+                <div class="form-group">
+                    <div class="row justify-content-center">
+                        <label class="col-md-8 control-label " for="ticket-description">Description</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" th:field="*{description}" id="ticket-description" name="ticket-description" th:text="*{description}"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 text-right">
+                            <button type="submit" class="btn btn-success">Update Status</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <div class="row justify-content-center">
-                <label class="col-md-8 control-label " for="ticket-description">Description</label>
-                <div class="col-md-8">
-                    <textarea class="form-control" th:field="*{description}" id="ticket-description" name="ticket-description" th:text="*{description}"></textarea>
+
+        <h4 class="offset-md-1">Updates</h4>
+
+        <table th:unless="${!statuses.isEmpty()}" class="table col-md-10 offset-1">
+            <tr>
+                <td>No Updates</td>
+            </tr>
+        </table>
+
+        <!--<div th:if="${!statuses.isEmpty()}">-->
+            <!--<table class="table col-md-10 offset-md-1">-->
+                <!--<tr>-->
+                    <!--<th>Update</th>-->
+                    <!--<th>Author</th>-->
+                    <!--<th>Date</th>-->
+                <!--</tr>-->
+                <!--<tr class="border border-primary rounded" th:each="status : ${statuses}">-->
+                    <!--<td th:text="${status.getDescription()}"></td>-->
+                    <!--<td th:text="${status.getAuthor()}"></td>-->
+                    <!--<td th:text="${#dates.format(status.updateDate, 'M/dd/yyyy h:mm a ')}"></td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</div>-->
+
+        <div class="container" th:if="${!statuses.isEmpty()}">
+            <div th:each="status : ${statuses}">
+                <div class="row offset-md-1">
+                    <div class="col-md-10 border border-primary rounded">
+                        <p th:text="${status.getDescription()}"></p>
+                    </div>
+
+                </div>
+                <div class="row offset-md-1">
+                    <div class="col-md-10 text-right">
+                        <p class="font-weight-light " th:text="'By ' + ${status.getAuthor()} + ' on ' + ${#dates.format(status.updateDate, 'M/dd/yyyy h:mm a')}"></p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="row justify-content-center">
-                <div class="col-md-8 text-right">
-                    <button type="submit" class="btn btn-success">Update Status</button>
+
+        <h4 class="offset-md-1">Add an update</h4>
+
+        <form class="form-horizontal" method="POST" th:action="'/ticket/'+${ticket.id}+'/add'" th:object="${status}">
+            <div class="form-group">
+                <div class="row justify-content-center">
+                    <label class="col-md-8 control-label" for="description">Description</label>
+                    <div class="col-md-8">
+                        <textarea class="form-control" th:field="*{description}" id="description" name="description"></textarea>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
-
-<h4 class="offset-md-1">Updates</h4>
-
-<table th:unless="${!statuses.isEmpty()}" class="table col-md-10 offset-1">
-    <tr>
-        <td>No Updates</td>
-    </tr>
-</table>
-
-<div th:if="${!statuses.isEmpty()}">
-    <table class="table col-md-10 offset-md-1">
-        <tr>
-            <th>Update</th>
-            <th>Author</th>
-            <th>Date</th>
-        </tr>
-        <tr th:each="status : ${statuses}">
-            <td th:text="${status.getDescription()}"></td>
-            <td th:text="${status.getAuthor()}"></td>
-            <td th:text="${#dates.format(status.updateDate, 'M/dd/yyyy h:mm a ')}"></td>
-        </tr>
-    </table>
-</div>
-
-<h4 class="offset-md-1">Add an update</h4>
-
-<form class="form-horizontal" method="POST" th:action="'/ticket/'+${ticket.id}+'/add'" th:object="${status}">
-    <div class="form-group">
-        <div class="row justify-content-center">
-            <label class="col-md-8 control-label" for="description">Description</label>
-            <div class="col-md-8">
-                <textarea class="form-control" th:field="*{description}" id="description" name="description"></textarea>
+            <div class="form-group">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 text-right">
+                        <button type="submit" class="btn btn-success">New Update</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="row justify-content-center">
-            <div class="col-md-8 text-right">
-                <button type="submit" class="btn btn-success">New Update</button>
-            </div>
-        </div>
-    </div>
-
-</form>
-
-</body>
+        </form>
+    </body>
 </html>
