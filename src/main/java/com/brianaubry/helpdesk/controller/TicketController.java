@@ -45,12 +45,13 @@ public class TicketController {
     @RequestMapping(value={"", "/"})
     public String ticketIndex(Model model, @ModelAttribute User loggedInUser){
         populateUserDetails(model);
-        model.addAttribute("ticket","this is the ticket page");
         List<Ticket> openTickets = ticketRepository.findAll();
         model.addAttribute("openTickets", openTickets);
 
         //TODO: show only tickets that are assigned to the logged in user
 
+        List<Ticket> assignedTickets = ticketRepository.assignedTickets(loggedInUser.getId());
+        System.out.println(assignedTickets);
         return "ticket/index";
     }
 
