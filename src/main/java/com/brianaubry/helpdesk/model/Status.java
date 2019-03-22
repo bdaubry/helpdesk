@@ -18,10 +18,6 @@ public class Status implements Comparable<Status>{
     private int id;
 
     @NotNull
-    @Size(min = 5, max = 50)
-    private String title;
-
-    @NotNull
     private String description;
 
     @CreationTimestamp
@@ -36,14 +32,6 @@ public class Status implements Comparable<Status>{
 
     public int getId() {
         return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {

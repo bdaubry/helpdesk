@@ -95,6 +95,8 @@ public class TicketController {
         model.addAttribute("status", newStatus);
         model.addAttribute("stages", Stage.values());
 
+        //TODO: updates are not showing in date order, need to ensure they are date-sorted
+
         return "ticket/ticket-detail";
     }
 
@@ -111,7 +113,7 @@ public class TicketController {
 
     @PostMapping(value = "{id}/update")
     public String processTicketUpdate(Model model, @PathVariable("id") int id, @Valid Ticket ticket, Errors errors){
-        //TODO: update methods
+
         Ticket activeTicket = ticketRepository.findById(id);
 
         activeTicket.setDescription(ticket.getDescription());
