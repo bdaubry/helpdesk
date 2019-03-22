@@ -31,13 +31,17 @@
     <form class="form-horizontal" method="post" th:action="'/ticket/'+${ticket.id}+'/update'" th:object="${ticket}">
         <div class="form-group">
             <div class="row justify-content-center">
-                <label class="col-md-4 control-label text-right" for="ticket-status">Status</label>
+                <label class="col-md-8 control-label" for="ticket-status">Status</label>
+            </div>
+            <div class="row justify-content-center">
+
                 <div class="col-md-4">
                     <!--<input id="ticket-status" name="ticket-status" th:field="*{stage}" type="text" placeholder="" class="form-control input-md">-->
                     <select id="ticket-status" name="ticket-status" th:field="*{stage}" class="custom-select">
                         <option th:each="stage : ${stages}" th:value="${stage}" th:text="${stage.name}" th:selected="${ticket.stage}"></option>
                     </select>
                 </div>
+                <div class="col-md-4"></div>
             </div>
         </div>
         <div class="form-group">
@@ -58,7 +62,7 @@
     </form>
 </div>
 
-<h4>Updates</h4>
+<h4 class="offset-1">Updates</h4>
 
 <table th:unless="${!statuses.isEmpty()}" class="table col-md-10 offset-1">
     <tr>
@@ -81,7 +85,7 @@
     </table>
 </div>
 
-<h4>Add an update</h4>
+<h4 class="offset-1">Add an update</h4>
 
 <form class="form-horizontal" method="POST" th:action="'/ticket/'+${ticket.id}+'/add'" th:object="${status}">
     <div class="form-group">
