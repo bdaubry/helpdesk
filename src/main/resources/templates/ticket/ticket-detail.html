@@ -88,14 +88,14 @@
 
         <div class="container" th:if="${!statuses.isEmpty()}">
             <div th:each="status : ${statuses}">
-                <div class="row offset-md-1">
-                    <div class="col-md-10 border border-primary rounded">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 border border-primary rounded">
                         <p th:text="${status.getDescription()}"></p>
                     </div>
 
                 </div>
-                <div class="row offset-md-1">
-                    <div class="col-md-10 text-right">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 text-right">
                         <p class="font-weight-light " th:text="'By ' + ${status.getAuthor()} + ' on ' + ${#dates.format(status.updateDate, 'M/dd/yyyy h:mm a')}"></p>
                     </div>
                 </div>
