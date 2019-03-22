@@ -6,24 +6,24 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<table class="table col-md-10 offset-1">
+<table class="table col-md-10 offset-md-1">
     <tr th:colspan="2">
         <th>Ticket Number</th>
         <td th:text="${ticket.id}"></td>
         <th>Date Opened</th>
-        <td th:text="${ticket.dateOpened}">DATE</td>
+        <td th:text="${#dates.format(ticket.dateOpened, 'M/dd/yyyy h:mm a ')}">DATE</td>
     </tr>
     <tr>
         <th>Title</th>
         <td th:text="${ticket.title}"></td>
         <th>Last Update</th>
-        <td th:text="${ticket.lastUpdated}"></td>
+        <td th:text="${#dates.format(ticket.lastUpdated, 'M/dd/yyyy h:mm a ')}"></td>
     </tr>
     <tr>
         <th>Opened By</th>
         <td th:text="${ticket.createdBy.email}"></td>
         <th>Assigned to</th>
-        <td th:text="${ticket.assignedTo}"></td>
+        <td th:text="${ticket.assignedTo != null} ? ${ticket.assignedTo} : 'Unassigned'">Unassigned</td>
     </tr>
 </table>
 
@@ -62,7 +62,7 @@
     </form>
 </div>
 
-<h4 class="offset-1">Updates</h4>
+<h4 class="offset-md-1">Updates</h4>
 
 <table th:unless="${!statuses.isEmpty()}" class="table col-md-10 offset-1">
     <tr>
@@ -71,7 +71,7 @@
 </table>
 
 <div th:if="${!statuses.isEmpty()}">
-    <table class="table col-md-10 offset-1">
+    <table class="table col-md-10 offset-md-1">
         <tr>
             <th>Update</th>
             <th>Author</th>
@@ -80,12 +80,12 @@
         <tr th:each="status : ${statuses}">
             <td th:text="${status.getDescription()}"></td>
             <td th:text="${status.getAuthor()}"></td>
-            <td th:text="${status.getUpdateDate()}"></td>
+            <td th:text="${#dates.format(status.updateDate, 'M/dd/yyyy h:mm a ')}"></td>
         </tr>
     </table>
 </div>
 
-<h4 class="offset-1">Add an update</h4>
+<h4 class="offset-md-1">Add an update</h4>
 
 <form class="form-horizontal" method="POST" th:action="'/ticket/'+${ticket.id}+'/add'" th:object="${status}">
     <div class="form-group">
