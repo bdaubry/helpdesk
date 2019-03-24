@@ -51,7 +51,9 @@ public class TicketController {
         model.addAttribute("openTickets", openTickets);
 
         //TODO: show only tickets that are assigned to the logged in user
-
+        List<Ticket> assignedTickets = ticketRepository.findByAssignedToId(loggedInUser.getId());
+        model.addAttribute("assigned", assignedTickets);
+        System.out.println(assignedTickets);
 
         return "ticket/index";
     }
