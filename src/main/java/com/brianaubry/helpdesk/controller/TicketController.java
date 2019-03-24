@@ -8,6 +8,8 @@ import com.brianaubry.helpdesk.repository.StatusRepository;
 import com.brianaubry.helpdesk.repository.TicketRepository;
 import com.brianaubry.helpdesk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -50,8 +52,7 @@ public class TicketController {
 
         //TODO: show only tickets that are assigned to the logged in user
 
-        List<Ticket> assignedTickets = ticketRepository.assignedTickets(loggedInUser.getId());
-        System.out.println(assignedTickets);
+
         return "ticket/index";
     }
 
