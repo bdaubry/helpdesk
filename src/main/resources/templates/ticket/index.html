@@ -34,7 +34,7 @@
         <th scope="col">Last Updated</th>
     </tr>
     </thead>
-    <tr th:each="ticket : ${openTickets}" th:if="${ticket.getAssignedTo() == loggedInUser.getId()}">
+    <tr th:each="ticket : ${openTickets}" th:if="${ticket.getAssignedTo().id == loggedInUser.getId()}">
         <td ><a th:text="${ticket.id}" th:href="@{'/ticket/'+${ticket.id}}"></a></td>
         <td th:text="${ticket.title}"></td>
         <td th:text="${ticket.dateOpened}"></td>
