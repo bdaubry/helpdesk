@@ -14,5 +14,5 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     Ticket findById(int id);
 
-    List<Ticket> findByAssignedToId(int id);
+    List<Ticket> findByAssignedToId(int assignedToId);
 }

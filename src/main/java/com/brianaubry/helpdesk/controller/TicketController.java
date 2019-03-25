@@ -55,6 +55,8 @@ public class TicketController {
         model.addAttribute("assigned", assignedTickets);
         System.out.println(assignedTickets);
 
+        model.addAttribute("loggedInUserId", loggedInUser.getId());
+
         return "ticket/index";
     }
 
