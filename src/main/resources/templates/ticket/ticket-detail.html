@@ -5,6 +5,31 @@
     <body class="container">
         <nav th:replace="fragments :: navigation"></nav>
 
+        <div class="container" th:if="${ticket.stage.name != 'Closed'}">
+            <form class="form-horizontal" method="post" th:action="'/ticket/'+${ticket.id}+'/close'" th:object="${ticket}">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 text-right">
+                        <button type="submit" class="btn btn-danger text-right">Close Ticket</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="container" th:unless="${ticket.stage.name != 'Closed'}">
+            <form class="form-horizontal" method="post" th:action="'/ticket/'+${ticket.id}+'/reopen'" th:object="${ticket}">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 text-right">
+                        <button type="submit" class="btn btn-warning text-right">Re-Open Ticket</button>
+                    </div>
+                </div>
+            </form>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <p class="text-right">Ticket closed <span th:text="${#dates.format(ticket.getDateClosed(), 'M/dd/yyyy h:mm a ')}"></span></p>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
             <table class="table offset-md-2">
                 <tr class="row">
@@ -61,6 +86,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
 
         <h4 class="offset-md-1">Updates</h4>

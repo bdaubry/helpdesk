@@ -128,11 +128,12 @@ public class TicketController {
 
         Ticket activeTicket = ticketRepository.findById(id);
         activeTicket.setStage(Stage.CLOSED);
+        activeTicket.setDateClosed(new Date());
         ticketRepository.save(activeTicket);
 
-        return "redirect:/ticket/index";
+        return "redirect:/ticket/";
     }
 
-    //TODO: close ticket process/methods, update ticket process/methods
+    //TODO: reopen method for closed ticket
 
 }
