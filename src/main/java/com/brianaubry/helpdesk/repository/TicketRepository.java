@@ -1,6 +1,7 @@
 package com.brianaubry.helpdesk.repository;
 
 import com.brianaubry.helpdesk.model.Ticket;
+import com.brianaubry.helpdesk.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,5 +15,5 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     Ticket findById(int id);
 
-    List<Ticket> findByAssignedToId(int assignedToId);
+    List<Ticket> findByAssignedToId(int id);
 }
