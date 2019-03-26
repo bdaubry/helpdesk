@@ -50,13 +50,6 @@ public class TicketController {
         List<Ticket> openTickets = ticketRepository.findAll();
         model.addAttribute("openTickets", openTickets);
 
-        //TODO: show only tickets that are assigned to the logged in user
-        List<Ticket> assignedTickets = ticketRepository.findByAssignedToId(loggedInUser.getId());
-        model.addAttribute("assigned", assignedTickets);
-        System.out.println(assignedTickets);
-
-        model.addAttribute("loggedInUserId", loggedInUser.getId());
-
         return "ticket/index";
     }
 
@@ -127,6 +120,17 @@ public class TicketController {
         ticketRepository.save(activeTicket);
 
         return "redirect:/ticket/" + id;
+    }
+
+
+    @PostMapping(value = "{id}/close")
+    public String processTicketClosure(Model model, @PathVariable("id") int id, @Valid Ticket ticket, Errors errors){
+
+        Ticket activeTicket = ticketRepository.findById(id);
+        activeTicket.setStage(Stage.CLOSED);
+        ticketRepository.save(activeTicket);
+
+        return "redirect:/ticket/index";
     }
 
     //TODO: close ticket process/methods, update ticket process/methods

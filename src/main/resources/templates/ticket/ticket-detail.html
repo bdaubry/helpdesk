@@ -23,7 +23,7 @@
                     <th class="col-md-2">Opened By</th>
                     <td class="col-md-2" th:text="${ticket.createdBy.email}"></td>
                     <th class="col-md-2">Assigned to</th>
-                    <td class="col-md-2" th:text="${ticket.assignedTo != null} ? ${ticket.assignedTo} : 'Unassigned'">Unassigned</td>
+                    <td class="col-md-2" th:text="${ticket.assignedTo != null} ? ${ticket.assignedTo.email} : 'Unassigned'">Unassigned</td>
                 </tr>
             </table>
         </div>
