@@ -134,6 +134,15 @@ public class TicketController {
         return "redirect:/ticket/";
     }
 
+    @PostMapping(value = "{id}/reopen")
+    public String processTicketReopen(Model model,@PathVariable("id") int id, @Valid Ticket ticket, Errors errors){
+
+        Ticket activeTicket = ticketRepository.findById(id);
+        activeTicket.setStage(Stage.OPEN);
+        activeTicket.setDateClosed(null);
+        return "redirect:/ticket/" + id;
+    }
+
     //TODO: reopen method for closed ticket
 
 }
