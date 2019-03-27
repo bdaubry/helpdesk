@@ -33,6 +33,9 @@ public class AdminController {
 
     @RequestMapping(value = "")
     public String adminConsole(Model model){
+
+
+
         return "admin/admin";
     }
 

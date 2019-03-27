@@ -44,6 +44,8 @@ public class TicketController {
         return loggedInUser;
     }
 
+
+    //Opens the main ticket page, showing a list of all tickets and tickets assigned
     @RequestMapping(value={"", "/"})
     public String ticketIndex(Model model, @ModelAttribute User loggedInUser){
         populateUserDetails(model);
@@ -53,7 +55,7 @@ public class TicketController {
         return "ticket/index";
     }
 
-
+    //shows form to create new tickets
     @GetMapping(value = "new")
     public String createNewTicket(Model model){
         
@@ -62,6 +64,7 @@ public class TicketController {
         return "ticket/new";
     }
 
+    //sends ticket creation form, and forwards to the newly created page for the individual ticket
     @PostMapping(value = "new")
     public String processTicketCreation(Model model, @Valid Ticket newTicket, Errors errors){
 
@@ -80,12 +83,14 @@ public class TicketController {
     }
 
 
-
+    //handles handles the viewing of an individual ticket
     @RequestMapping(value="{id}")
     public String ticketIndexSingle(Model model, @PathVariable("id") int id){
         Ticket activeTicket = ticketRepository.findById(id);
         Status newStatus = new Status();
 
+        //creates a list of updates tied to that ticket, and then sorts them in reverse order,
+        //so that the newest "status" is on top
         List<Status> updates = activeTicket.getUpdates();
         Collections.reverse(updates);
 
@@ -99,6 +104,7 @@ public class TicketController {
         return "ticket/ticket-detail";
     }
 
+    //processes adding of a new status
     @PostMapping(value = "{id}/add")
     public String addStatusUpdate(Model model, @PathVariable("id") int id, @Valid Status newStatus){
         Ticket activeTicket = ticketRepository.findById(id);
@@ -110,6 +116,8 @@ public class TicketController {
         return "redirect:/ticket/" + id;
     }
 
+    //processes the updating of specific information tied to the initial ticket when it was created, i.e. the
+    //description or stage
     @PostMapping(value = "{id}/update")
     public String processTicketUpdate(Model model, @PathVariable("id") int id, @Valid Ticket ticket, Errors errors){
 
@@ -122,7 +130,7 @@ public class TicketController {
         return "redirect:/ticket/" + id;
     }
 
-
+    //processes ticket closure
     @PostMapping(value = "{id}/close")
     public String processTicketClosure(Model model, @PathVariable("id") int id, @Valid Ticket ticket, Errors errors){
 
@@ -134,15 +142,16 @@ public class TicketController {
         return "redirect:/ticket/";
     }
 
+    //enables the ability to reopen tickets when they have been closed
     @PostMapping(value = "{id}/reopen")
     public String processTicketReopen(Model model,@PathVariable("id") int id, @Valid Ticket ticket, Errors errors){
-
+        //TODO: test ticket reopening
         Ticket activeTicket = ticketRepository.findById(id);
         activeTicket.setStage(Stage.OPEN);
         activeTicket.setDateClosed(null);
         return "redirect:/ticket/" + id;
     }
 
-    //TODO: reopen method for closed ticket
+
 
 }

@@ -38,7 +38,9 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/ticket/">My Open Tickets</a>
+
                     <a class="dropdown-item" href="#">My Closed Tickets</a>
+                        <!--TODO - send to closed ticket queue when page is created-->
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/ticket/new">New Ticket</a>
                 </div>
@@ -53,7 +55,8 @@
                    aria-haspopup="true" aria-expanded="false" th:text="${loggedInUser.getEmail()}">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/">Account</a>
+                        <!--TODO - create account page, change redirect-->
+                    <a class="dropdown-item" href="#">Account</a>
                     <a class="dropdown-item" th:href="@{/logout}">Sign Out</a>
                 </div>
             </li>
