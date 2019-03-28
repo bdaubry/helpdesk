@@ -1,7 +1,6 @@
 package com.brianaubry.helpdesk.controller;
 
 import com.brianaubry.helpdesk.model.User;
-import com.brianaubry.helpdesk.repository.RoleRepository;
 import com.brianaubry.helpdesk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -35,7 +34,7 @@ public class AdminController {
     public String adminConsole(Model model){
 
 
-
+        //TODO: create admin console template and commands
         return "admin/admin";
     }
 
@@ -43,7 +42,7 @@ public class AdminController {
     public String create(Model model, @ModelAttribute User loggedInUser){
 
         populateUserDetails(model);
-        model.addAttribute("userName", loggedInUser.getFirstname() + " " + loggedInUser.getLastname());
+        model.addAttribute("userName", loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
 
         User newUser = new User();
         model.addAttribute("user", newUser);

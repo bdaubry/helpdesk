@@ -134,8 +134,8 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `active` int(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `firstname` varchar(255) DEFAULT NULL,
-  `lastname` varchar(255) DEFAULT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -143,7 +143,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `active`, `email`, `firstname`, `lastname`, `password`) VALUES
+INSERT INTO `user` (`id`, `active`, `email`, `firstName`, `lastName`, `password`) VALUES
 (1, 1, 'bdaubry@gmail.com', 'Brian', 'Aubry', '$2a$10$.RUw5S/zyl/HGBd85o6Q/e0hnXsYyAnVzJILHTqPPkDqmlMWLPxJu'),
 (2, 1, 'admin@admin.com', 'admin', 'admin', '$2a$10$fD1BeYqFJntdYpE9.gNVquAAEzJxHNgqczYKGwQcn18Ngvnwt/aUO'),
 (3, 1, 'testuser@test.com', 'testuser', 'testuser', '$2a$10$aUGCFq11bHq/XPr4eN0sG.0z9AlX3c5OdjsMgjPjH5oYJTK2hIsFa');

@@ -39,8 +39,8 @@ public class IndexController {
 //
 //        if(adminExists == null){
 //            User admin = new User();
-//            admin.setFirstname("admin");
-//            admin.setLastname("admin");
+//            admin.setFirstName("admin");
+//            admin.setLastName("admin");
 //            admin.setEmail("admin@admin.com");
 //            admin.setPassword("admin");
 //            userService.saveUser(admin);
