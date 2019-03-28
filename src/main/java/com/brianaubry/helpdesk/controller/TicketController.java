@@ -35,6 +35,8 @@ public class TicketController {
 
     private String id;
 
+    //this allows the "logged in user" to have information populated into the methods, i.e. id, etc. I'm not entirely
+    //sure it's necessary, but I haven't researched how to change it or where to move it so it isn't reused so often.
     @ModelAttribute("loggedInUser")
     public User populateUserDetails(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -44,10 +46,9 @@ public class TicketController {
         return loggedInUser;
     }
 
-
     //Opens the main ticket page, showing a list of all tickets and tickets assigned
-    @RequestMapping(value={"", "/"})
-    public String ticketIndex(Model model, @ModelAttribute User loggedInUser){
+    @RequestMapping
+        public String ticketIndex(Model model, @ModelAttribute User loggedInUser){
         populateUserDetails(model);
         List<Ticket> openTickets = ticketRepository.findAll();
         model.addAttribute("openTickets", openTickets);
@@ -132,7 +133,7 @@ public class TicketController {
 
     //processes ticket closure
     @PostMapping(value = "{id}/close")
-    public String processTicketClosure(Model model, @PathVariable("id") int id, @Valid Ticket ticket, Errors errors){
+        public String processTicketClosure(Model model, @PathVariable("id") int id, @Valid Ticket ticket, Errors errors){
 
         Ticket activeTicket = ticketRepository.findById(id);
         activeTicket.setStage(Stage.CLOSED);
