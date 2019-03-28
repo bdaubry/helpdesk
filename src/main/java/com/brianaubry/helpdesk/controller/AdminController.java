@@ -60,6 +60,9 @@ public class AdminController {
         if(bindingResult.hasErrors()){
             return "admin/create";
         } else {
+            //TODO: allow user to login using either username or email
+            char firstInitial = user.getFirstName().charAt(0);
+            user.setUsername((firstInitial + user.getLastName()).toLowerCase());
             userService.saveUser(user);
             model.addAttribute("msg","User registered successfully");
             model.addAttribute("user", new User());

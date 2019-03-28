@@ -15,10 +15,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "firstName")
+    @Column(name = "firstname")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastname")
     private String lastName;
 
     @Column(name = "password")
@@ -91,6 +91,10 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUsername() {
