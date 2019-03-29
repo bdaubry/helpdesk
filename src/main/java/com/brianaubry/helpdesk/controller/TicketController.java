@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = "ticket")
+@RequestMapping("/ticket")
 public class TicketController {
 
     @Autowired

@@ -1,6 +1,7 @@
 package com.brianaubry.helpdesk.controller;
 
 import com.brianaubry.helpdesk.model.User;
+import com.brianaubry.helpdesk.repository.UserRepository;
 import com.brianaubry.helpdesk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -20,6 +22,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @ModelAttribute("loggedInUser")
     public User populateUserDetails(Model model) {
@@ -68,6 +73,16 @@ public class AdminController {
             model.addAttribute("user", new User());
             return "admin/create";
         }
+    }
+
+    @RequestMapping(value = "users")
+    public String manageUsers(Model model){
+
+        List<User> allUsers = userRepository.findAll();
+
+        model.addAttribute("allUsers", allUsers);
+
+        return "admin/users";
     }
 
 }
