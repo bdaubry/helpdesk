@@ -24,7 +24,7 @@
         <td th:text="${user.id}"></td>
         <td th:text="${user.firstName} + ' ' + ${user.lastName}"></td>
         <td th:text="${user.email}"></td>
-        <td><span th:each="role : ${user.roles}" th:text="${role.role.}"></span></td>
+        <td><span th:each="role : ${user.roles}" th:text="${role.role}"></span></td>
     </tr>
 
     </tbody>
