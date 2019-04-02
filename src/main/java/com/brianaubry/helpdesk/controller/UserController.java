@@ -60,4 +60,10 @@ public class UserController {
         //TODO: create user queue page
         return "user/queue";
     }
+
+    @RequestMapping(value = "{id}/account")
+    public String userSettings(Model model, @PathVariable("id") int id){
+        //TODO: create settings page
+        return "user/stats";
+    }
 }
