@@ -29,18 +29,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Role findRoleByUser(String role) {
-        return roleRepository.findByRole(role);
+    public boolean findRoleByUser(String role, User user) {
+        return user.getRoles().contains(roleRepository.findByRole(role));
     }
 
     @Override
     public boolean isAdmin(User user) {
-        return user.getRoles().contains(findRoleByUser("ADMIN"));
+        return user.getRoles().contains("ADMIN");
     }
 
     @Override
     public boolean isUser(User user) {
-        return user.getRoles().contains(findRoleByUser("USER"));
+        return user.getRoles().contains("USER");
     }
 
     @Override

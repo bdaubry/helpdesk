@@ -56,6 +56,10 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <!--TODO - create account page, change redirect-->
+
+                    <div th:each="role : ${loggedInUser.roles}">
+                        <a th:if="${role.role} == 'ADMIN'"  class="dropdown-item" href="/admin/">Admin Panel</a>
+                    </div>
                     <a class="dropdown-item" href="#">Account</a>
                     <a class="dropdown-item" th:href="@{/logout}">Sign Out</a>
                 </div>

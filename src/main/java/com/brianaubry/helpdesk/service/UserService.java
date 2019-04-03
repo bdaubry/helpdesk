@@ -7,7 +7,7 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-    Role findRoleByUser(String role);
+    boolean findRoleByUser(String role, User user);
 
     boolean isAdmin(User user);
 

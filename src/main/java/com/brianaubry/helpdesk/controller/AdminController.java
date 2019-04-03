@@ -1,6 +1,8 @@
 package com.brianaubry.helpdesk.controller;
 
+import com.brianaubry.helpdesk.model.Role;
 import com.brianaubry.helpdesk.model.User;
+import com.brianaubry.helpdesk.repository.RoleRepository;
 import com.brianaubry.helpdesk.repository.UserRepository;
 import com.brianaubry.helpdesk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ public class AdminController {
     @Autowired
     private UserRepository userRepository;
 
+
     @ModelAttribute("loggedInUser")
     public User populateUserDetails(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -36,8 +39,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "")
-    public String adminConsole(Model model){
-
+    public String adminConsole(Model model, @ModelAttribute User loggedInUser){
 
         //TODO: create admin console template and commands
         return "admin/admin";
