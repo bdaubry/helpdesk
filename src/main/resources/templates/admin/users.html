@@ -25,7 +25,12 @@
         <td th:text="${user.firstName} + ' ' + ${user.lastName}"></td>
         <td th:text="${user.email}"></td>
         <td><span th:each="role : ${user.roles}" th:text="${role.role}+' '"></span></td>
-        <td><a href="/admin/users/add-role">Add Roles</a></td>
+        <td>
+            <form method="post" th:action="'/admin/users/add-role/' + ${user.id}">
+                <button type="submit">Add Tech Role</button>
+            </form>
+            <!--<a th:href="'admin/users/add-role/' + ${user.id}">Add Tech Role</a>-->
+        </td>
     </tr>
 
     </tbody>

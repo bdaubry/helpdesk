@@ -11,12 +11,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,6 +28,9 @@ public class AdminController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     @ModelAttribute("loggedInUser")
@@ -85,6 +89,15 @@ public class AdminController {
         model.addAttribute("allUsers", allUsers);
 
         return "admin/users";
+    }
+
+    @PostMapping(value = "users/add-role/{id}")
+    public String addUserRoles(Model model, @PathVariable("id") int id){
+        User user = userRepository.findById(id);
+        Set<Role> userRoles = user.getRoles();
+        userRoles.addAll(Arrays.asList(new Role[] {roleRepository.findById(3)}));
+        userRepository.save(user);
+        return "redirect:/admin/users";
     }
 
 }
