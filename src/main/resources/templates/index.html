@@ -6,6 +6,26 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+
+<table class="table table-sm">
+    <thead>
+    <tr>
+        <th scope="col">Ticket</th>
+        <th scope="col">Updated</th>
+        <th scope="col">Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    <div th:each="ticket : ${openTickets}" th:if="${ticket.assignedTo != null} and ${ticket.getAssignedTo().id == loggedInUser.getId()}">
+        <tr>
+            <th scope="row"><a th:text="${ticket.id}" th:href="@{'/ticket/'+${ticket.id}}"></a></th>
+            <td th:text="${ticket.lastUpdated}">Not Updated</td>
+            <td th:text="${ticket.title}"></td>
+        </tr>
+    </div>
+
+    </tbody>
+</table>
     <!--TODO: create a base view, with a list of tickets, possibly a calendar, and other links-->
 
 </body>

@@ -1,6 +1,8 @@
 package com.brianaubry.helpdesk.controller;
 
+import com.brianaubry.helpdesk.model.Ticket;
 import com.brianaubry.helpdesk.model.User;
+import com.brianaubry.helpdesk.repository.TicketRepository;
 import com.brianaubry.helpdesk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -12,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class IndexController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    TicketRepository ticketRepository;
 
     @ModelAttribute("loggedInUser")
     public User populateUserDetails(Model model) {
@@ -27,7 +33,11 @@ public class IndexController {
     }
 
     @RequestMapping(value = "")
-    public String index(Model model, HttpServletRequest request){
+    public String index(Model model, @ModelAttribute("loggedInUser") User loggedInUser, HttpServletRequest request){
+
+        List<Ticket> openTickets = ticketRepository.findAll();
+        model.addAttribute("openTickets", openTickets);
+
 
         return "index";
     }
