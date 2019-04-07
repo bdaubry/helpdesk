@@ -54,6 +54,13 @@ public class TicketController {
         return "ticket/index";
     }
 
+    @RequestMapping(value = "all")
+        public String ticketListAll(Model model, @ModelAttribute User loggedInUser){
+        List<Ticket> openTickets = ticketRepository.findAll();
+        model.addAttribute("openTickets", openTickets);
+        return "ticket/all-tickets";
+    }
+
     //shows form to create new tickets
     @GetMapping(value = "new")
     public String createNewTicket(Model model){
