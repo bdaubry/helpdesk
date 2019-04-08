@@ -8,6 +8,7 @@
 
 <div class="container-fluid">
     <div class="row">
+        <div class="col-md-1"></div>
         <div class="col-md-2 justify-content-md-start">
             <h5 class="text-left">Quick Links</h5>
             <ul class="list-group">
@@ -17,34 +18,31 @@
                 <li class="list-group-item">Closed Tickets</li>
             </ul>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h4>Open Tickets</h4>
             <table class="table table-sm table-striped">
                 <thead class="thead-dark">
-                <tr>
-                    <th class="text-center" scope="col">Ticket</th>
-                    <th scope="col">Updated</th>
-                    <th scope="col">Title</th>
-                </tr>
+                    <tr>
+                        <th class="text-center" scope="col">Ticket</th>
+                        <th scope="col">Updated</th>
+                        <th scope="col">Title</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <div th:each="ticket : ${openTickets}"
-                     th:if="${ticket.assignedTo != null} and ${ticket.getAssignedTo().id == loggedInUser.getId()}">
-                    <tr>
-                        <th class="text-center" scope="row">
-                            <a th:text="${ticket.id}" th:href="@{'/ticket/'+${ticket.id}}"></a>
-                        </th>
-                        <td th:text="${#dates.format(ticket.lastUpdated, 'M/dd/yy h:mm a')}">Not Updated</td>
-                        <td th:text="${ticket.title}"></td>
-                    </tr>
-                </div>
-
+                    <div th:each="ticket : ${openTickets}"
+                         th:if="${ticket.assignedTo != null} and ${ticket.getAssignedTo().id == loggedInUser.getId()}">
+                        <tr>
+                            <th class="text-center" scope="row">
+                                <a th:text="${ticket.id}" th:href="@{'/ticket/'+${ticket.id}}"></a>
+                            </th>
+                            <td th:text="${#dates.format(ticket.lastUpdated, 'M/dd/yy h:mm a')}">Not Updated</td>
+                            <td th:text="${ticket.title}"></td>
+                        </tr>
+                    </div>
                 </tbody>
             </table>
         </div>
-        <div class="col-md-4">
-
-        </div>
+        <div class="col-md-1"></div>
     </div>
 </div>
 
