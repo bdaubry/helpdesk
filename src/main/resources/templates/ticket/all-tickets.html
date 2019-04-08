@@ -14,7 +14,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Ticket Number</th>
+                    <th scope="col">Ticket</th>
                     <th scope="col">Ticket Title</th>
                     <th scope="col">Date Opened</th>
                     <th scope="col">Last Updated</th>
@@ -25,8 +25,8 @@
                 <tr th:each="ticket : ${openTickets}">
                     <td ><a th:text="${ticket.id}" th:href="@{'/ticket/'+${ticket.id}}"></a></td>
                     <td th:text="${ticket.title}"></td>
-                    <td th:text="${#dates.format(ticket.dateOpened, 'M/dd/yyyy h:mm a')}"></td>
-                    <td th:text="${#dates.format(ticket.lastUpdated, 'M/dd/yyyy h:mm a')}"></td>
+                    <td th:text="${#dates.format(ticket.dateOpened, 'M/dd/yy h:mm a')}"></td>
+                    <td th:text="${#dates.format(ticket.lastUpdated, 'M/dd/yy h:mm a')}"></td>
                     <td th:if="${ticket.assignedTo != null}" th:text="${ticket.assignedTo.firstName}+ ' ' +${ticket.assignedTo.lastName}" >Unassigned</td>
                     <td th:unless="${ticket.assignedTo != null}">Unassigned</td>
                     <td th:text="${ticket.stage}"></td>

@@ -44,8 +44,13 @@ public class AdminController {
     @RequestMapping(value = "")
     public String adminConsole(Model model, @ModelAttribute User loggedInUser){
 
-        //TODO: create admin console template and commands
-        return "admin/admin";
+        List<User> allUsers = userRepository.findAll();
+
+        model.addAttribute("allUsers", allUsers);
+
+        //TODO: create admin console template and commands, change return to admin/admin when done
+        // return "admin/admin";
+        return "admin/users";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.GET)

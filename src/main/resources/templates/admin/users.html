@@ -7,36 +7,46 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <!--Table-->
-<table id="tablePreview" class="table table-hover table-sm">
-    <!--Table head-->
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Role</th>
-    </tr>
-    </thead>
-    <!--Table head-->
-    <!--Table body-->
-    <tbody>
-    <tr th:each="user : ${allUsers}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.firstName} + ' ' + ${user.lastName}"></td>
-        <td th:text="${user.email}"></td>
-        <td><span th:each="role : ${user.roles}" th:text="${role.role}+' '"></span></td>
-        <td>
-            <form method="post" th:action="'/admin/users/add-role/' + ${user.id}">
-                <button type="submit">Add Tech Role</button>
-            </form>
-            <!--<a th:href="'admin/users/add-role/' + ${user.id}">Add Tech Role</a>-->
-        </td>
-    </tr>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8">
+        <table id="tablePreview" class="table table-hover table-sm">
+            <!--Table head-->
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+            </thead>
+            <!--Table head-->
+            <!--Table body-->
+            <tbody>
+            <tr th:each="user : ${allUsers}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.firstName} + ' ' + ${user.lastName}"></td>
+                <td th:text="${user.email}"></td>
+                <td><span th:each="role : ${user.roles}" th:text="${role.role}+' '"></span></td>
+                <td>
+                    <form method="post" th:action="'/admin/users/add-role/' + ${user.id}">
+                        <button type="submit">Add Tech Role</button>
+                    </form>
+                    <!--<a th:href="'admin/users/add-role/' + ${user.id}">Add Tech Role</a>-->
+                </td>
+            </tr>
 
-    </tbody>
-    <!--Table body-->
-</table>
-<!--Table-->
+            </tbody>
+            <!--Table body-->
+        </table>
+        <!--Table-->
+    </div>
+    <div class="col-md-2">
+        <a href="/admin/create">Create new users</a>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
 
 </body>
 </html>
